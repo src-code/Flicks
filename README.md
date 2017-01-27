@@ -30,7 +30,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-http://imgur.com/kWKqbmc - Image too large for Github
+http://i.imgur.com/j6cTO3C.gifv
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
