@@ -21,6 +21,8 @@
 @property (strong, nonatomic) UICollectionView *movieCollectionView;
 @property (strong, nonatomic) NSArray<MovieModel *> *movies;
 @property (weak, nonatomic) MovieFetcher *movieFetcher;
+@property (weak, nonatomic) IBOutlet UIView *errorBar;
+@property (weak, nonatomic) IBOutlet UILabel *errorText;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
@@ -55,32 +57,33 @@
     [self.view addSubview:collectionView];
     self.movieCollectionView = collectionView;
 
+    // Pull to refresh
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
+    
     // Set the view mode
     [self setViewMode];
     
     // Fetch the movie data
     [self fetchMovies];
-    
-    // Pull to refresh
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
-    [self.movieTableView insertSubview:self.refreshControl atIndex:0];
-    [self.movieCollectionView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void)fetchMovies {
-    MovieFetcherCallback callback = ^(NSArray *movies, NSError* error) {
+    MovieListFetcherCallback callback = ^(NSArray *movies, NSError* error) {
         if (!error) {
             self.movies = movies;
             [self.movieTableView reloadData];
             [self.movieCollectionView reloadData];
         } else {
+            self.errorText.text = @"Network error";
+            self.errorBar.hidden = NO;
             NSLog(@"An error occurred: %@", error.description);
         }
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.refreshControl endRefreshing];
     };
     
+    self.errorBar.hidden = YES;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     if ([self.restorationIdentifier isEqualToString:@"now_playing"]) {
         [self.movieFetcher fetchNowPlaying:callback];
@@ -123,10 +126,12 @@
         // List mode
         self.movieCollectionView.hidden = YES;
         self.movieTableView.hidden = NO;
+        [self.movieTableView insertSubview:self.refreshControl atIndex:0];
     } else {
         // Grid mode
         self.movieCollectionView.hidden = NO;
         self.movieTableView.hidden = YES;
+        [self.movieCollectionView insertSubview:self.refreshControl atIndex:0];
     }
 }
 
@@ -172,9 +177,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    
-    //MovieModel *movieModel = [self.movies objectAtIndex:selectedIndex.row];
-    //segueViewController.movieId = movieModel.id;
     
     [self performSegueWithIdentifier:@"detail_view" sender:cell];
 }

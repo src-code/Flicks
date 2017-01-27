@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIkit.h>
 
-typedef void (^MovieFetcherCallback)(NSArray *movies, NSError* error);
+typedef void (^MovieListFetcherCallback)(NSArray *movies, NSError* error);
 typedef void (^MovieImageFetcherCallback)(UIImage *image, NSError* error);
-typedef void (^MovieDetailsFetcherCallback)(NSDictionary *movie, NSError* error);
+typedef void (^MovieFetcherCallback)(NSDictionary *movie, NSError* error);
 
 @interface MovieFetcher : NSObject
 + (id)sharedInstance ;
--(void) fetchTopRated:(MovieFetcherCallback)callback;
--(void) fetchNowPlaying:(MovieFetcherCallback)callback;
--(void) fetchMovieDetails:(MovieDetailsFetcherCallback)callback movieId:(NSString*) movieId;
+-(void) fetchTopRated:(MovieListFetcherCallback)callback;
+-(void) fetchNowPlaying:(MovieListFetcherCallback)callback;
+-(void) fetchMovieDetails:(MovieFetcherCallback)callback movieId:(NSString*) movieId;
 -(void) fetchImageForURL:(NSURL*)url withCallback:(MovieImageFetcherCallback)callback;
 @end

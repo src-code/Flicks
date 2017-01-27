@@ -34,7 +34,7 @@
 
     // NSLog(@"movie id %@", self.movieId);
 
-    MovieDetailsFetcherCallback callback = ^(NSDictionary *movie, NSError* error) {
+    MovieFetcherCallback callback = ^(NSDictionary *movie, NSError* error) {
         if (!error) {
             NSLog(@"movie data fetched for movie id %@: %@", self.movieId, movie);
             self.movie = movie;
