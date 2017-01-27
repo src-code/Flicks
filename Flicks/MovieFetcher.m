@@ -11,6 +11,8 @@
 
 @implementation MovieFetcher
 
+NSString *apiKey = @"f5408bb6365a69cb9fb8fadf33040c7a";
+
 + (id)sharedInstance {
     static MovieFetcher *mgr = nil;
     static dispatch_once_t onceToken;
@@ -30,14 +32,12 @@
 
 -(void) fetchTopRated:(MovieFetcherCallback)callback
 {
-    NSString *apiKey = @"f5408bb6365a69cb9fb8fadf33040c7a";
     NSString *urlString =
     [@"https://api.themoviedb.org/3/movie/top_rated?api_key=" stringByAppendingString:apiKey];
     [self fetchMoviesWithURL:urlString callback:callback];
 }
 -(void) fetchNowPlaying:(MovieFetcherCallback)callback
 {
-    NSString *apiKey = @"f5408bb6365a69cb9fb8fadf33040c7a";
     NSString *urlString =
     [@"https://api.themoviedb.org/3/movie/now_playing?api_key=" stringByAppendingString:apiKey];
     [self fetchMoviesWithURL:urlString callback:callback];
@@ -45,10 +45,8 @@
 
 -(void) fetchMovieDetails:(MovieDetailsFetcherCallback)callback movieId:(NSString*)movieId
 {
-    NSString *apiKey = @"f5408bb6365a69cb9fb8fadf33040c7a";
     NSString *urlString =
-    [NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/%@?api_key=%@", movieId, apiKey];
-    NSLog(@"Fetching movie details from %@", urlString);
+    [NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/%@?api_key=%@&append_to_response=videos", movieId, apiKey];
     [self fetchMovieDetailsWithURL:urlString callback:callback];
 }
 

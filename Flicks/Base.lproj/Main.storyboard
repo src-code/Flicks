@@ -59,7 +59,7 @@
                                             <outlet property="overviewLabel" destination="sOS-AG-9RZ" id="GHE-vs-c8b"/>
                                             <outlet property="posterImage" destination="v3R-jU-eNq" id="DNt-8h-MJs"/>
                                             <outlet property="titleLabel" destination="beg-w4-Zyo" id="OYt-Ps-j4i"/>
-                                            <segue destination="bmL-d9-Wb0" kind="show" id="Ngc-VG-C4J"/>
+                                            <segue destination="bmL-d9-Wb0" kind="show" identifier="detail_view" id="Ngc-VG-C4J"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -74,8 +74,8 @@
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="List"/>
-                                    <segment title="Grid"/>
+                                    <segment title="" image="ic_list"/>
+                                    <segment title="" image="ic_view_module"/>
                                 </segments>
                                 <connections>
                                     <action selector="onViewModeChange:" destination="KSy-ON-10O" eventType="valueChanged" id="4XZ-y5-lgY"/>
@@ -109,11 +109,11 @@
             </objects>
             <point key="canvasLocation" x="1214" y="-246"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="gHo-ba-agd">
             <objects>
                 <navigationController id="3n8-Ga-XgG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="DPU-NA-fzx"/>
+                    <tabBarItem key="tabBarItem" title="" id="DPU-NA-fzx"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LRq-y1-xwj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -176,7 +176,7 @@
                                             <outlet property="overviewLabel" destination="Oor-Up-EUV" id="rTR-6A-Gzr"/>
                                             <outlet property="posterImage" destination="1bn-An-Ljd" id="88G-yv-mkt"/>
                                             <outlet property="titleLabel" destination="GyP-UP-ks8" id="06H-CM-irg"/>
-                                            <segue destination="bmL-d9-Wb0" kind="show" id="S8w-im-MxV"/>
+                                            <segue destination="bmL-d9-Wb0" kind="show" identifier="detail_view" id="S8w-im-MxV"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -191,8 +191,8 @@
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="List"/>
-                                    <segment title="Grid"/>
+                                    <segment title="" image="ic_list"/>
+                                    <segment title="" image="ic_view_module"/>
                                 </segments>
                                 <connections>
                                     <action selector="onViewModeChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="5Pg-Je-XMG"/>
@@ -241,33 +241,41 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Release Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkh-Pa-K9O">
-                                                <rect key="frame" x="8" y="67" width="327" height="21"/>
+                                                <rect key="frame" x="8" y="64" width="327" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" lineBreakMode="wordWrap" numberOfLines="30" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xa2-Qh-UFM">
-                                                <rect key="frame" x="8" y="115" width="327" height="172"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fR-b9-Drk">
-                                                <rect key="frame" x="8" y="96" width="160" height="21"/>
+                                                <rect key="frame" x="8" y="126" width="327" height="161"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuH-SI-ZZK">
-                                                <rect key="frame" x="185" y="96" width="150" height="21"/>
+                                                <rect key="frame" x="193" y="96" width="142" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_schedule_white" translatesAutoresizingMaskIntoConstraints="NO" id="TUr-7c-iDa">
+                                                <rect key="frame" x="160" y="93" width="25" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fR-b9-Drk">
+                                                <rect key="frame" x="41" y="96" width="116" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_star_half_white" translatesAutoresizingMaskIntoConstraints="NO" id="2Ch-Hr-J0z">
+                                                <rect key="frame" x="8" y="93" width="25" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -313,6 +321,10 @@
     </scenes>
     <resources>
         <image name="film.png" width="24" height="24"/>
+        <image name="ic_list" width="24" height="24"/>
+        <image name="ic_schedule_white" width="24" height="24"/>
+        <image name="ic_star_half_white" width="24" height="24"/>
+        <image name="ic_view_module" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ngc-VG-C4J"/>

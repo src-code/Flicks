@@ -9,6 +9,7 @@
 #import "MovieDetailViewController.h"
 #import "MovieFetcher.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface MovieDetailViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *MovieDetailScrollView;
@@ -42,12 +43,20 @@
             NSString *backdropUrlString = [NSString stringWithFormat:@"https://image.tmdb.org/t/p/original%@", movie[@"backdrop_path"]];
             NSURL *backdropUrl = [NSURL URLWithString:backdropUrlString];
 
+            // Release Date
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            NSDate *releaseDate = [dateFormatter dateFromString:movie[@"release_date"]];
+            [dateFormatter setDateFormat:@"MMMM d, y"];
+            NSString *releaseDateString = [dateFormatter stringFromDate:releaseDate];
+            NSLog(@"release date %@", releaseDateString);
             
             // Set UI values
             self.titleLabel.text = movie[@"title"];
             self.descriptionLabel.text = movie[@"overview"];
-            self.releaseDate.text = movie[@"release_date"];
-            self.ratingLabel.text = [NSString stringWithFormat:@"%@/10", movie[@"vote_average"]];
+            self.releaseDate.text = releaseDateString;
+            float rating = [[movie objectForKey:@"vote_average"] floatValue];
+            self.ratingLabel.text = [NSString stringWithFormat:@"%.01f / 10", rating];
             self.durationLabel.text = [NSString stringWithFormat:@"%@ minutes", movie[@"runtime"]];
             [self.posterImage setImageWithURL:backdropUrl];
             
@@ -59,7 +68,9 @@
         } else {
             NSLog(@"An error occurred when fetching movie details: %@", error.description);
         }
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     };
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.movieFetcher fetchMovieDetails:callback movieId:self.movieId];
 }
 

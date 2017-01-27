@@ -15,7 +15,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "MoviePosterCollectionViewCell.h"
 
-@interface ViewController () <UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *movieTableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *viewModeSelector;
 @property (strong, nonatomic) UICollectionView *movieCollectionView;
@@ -28,12 +28,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Flicks";
-
+    self.navigationItem.title = @"Flicks";
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.movieFetcher = [MovieFetcher sharedInstance];
     
     // Table View
     self.movieTableView.dataSource = self;
+    self.movieTableView.delegate = self;
     
     // Collection View
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -53,9 +55,7 @@
     [self.view addSubview:collectionView];
     self.movieCollectionView = collectionView;
 
-    // DEBUG
-    //collectionView.hidden = YES;
-    //self.movieTableView.hidden = YES;
+    // Set the view mode
     [self setViewMode];
     
     // Fetch the movie data
@@ -95,12 +95,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    self.movieTableView.frame = self.view.bounds;
+    self.movieCollectionView.frame = self.view.bounds;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
-    NSIndexPath *selectedIndex = [self.movieTableView indexPathForSelectedRow];
-    // NSLog(@"selected row: %ld", (long)selectedIndex.row);
+    NSIndexPath *selectedIndex;
+    if (self.viewModeSelector.selectedSegmentIndex == 0) {
+        selectedIndex = [self.movieTableView indexPathForSelectedRow];
+    } else {
+        selectedIndex = [self.movieCollectionView indexPathForCell:sender];
+    }
+    // NSLog(@"selected index: %ld", (long)selectedIndex.row);
     
     MovieDetailViewController *segueViewController = [segue destinationViewController];
     MovieModel *movieModel = [self.movies objectAtIndex:selectedIndex.row];
@@ -124,6 +135,10 @@
 }
 
 #pragma mark - UITableViewDataSource
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.movieTableView deselectRowAtIndexPath:indexPath animated:true];
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.movies.count;
@@ -152,12 +167,15 @@
     MovieModel *model = [self.movies objectAtIndex:indexPath.row];
     
     cell.model = model;
-//    [cell reloadData];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    
+    //MovieModel *movieModel = [self.movies objectAtIndex:selectedIndex.row];
+    //segueViewController.movieId = movieModel.id;
+    
     [self performSegueWithIdentifier:@"detail_view" sender:cell];
 }
 @end
