@@ -114,7 +114,6 @@
     } else {
         selectedIndex = [self.movieCollectionView indexPathForCell:sender];
     }
-    // NSLog(@"selected index: %ld", (long)selectedIndex.row);
     
     MovieDetailViewController *segueViewController = [segue destinationViewController];
     MovieModel *movieModel = [self.movies objectAtIndex:selectedIndex.row];

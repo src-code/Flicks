@@ -228,7 +228,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Now Playing" image="film.png" id="2ij-ZX-0Kz"/>
+                    <tabBarItem key="tabBarItem" id="2ij-ZX-0Kz"/>
                     <navigationItem key="navigationItem" id="bUZ-XF-gQx">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="yjG-cQ-0zH">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="XJC-WC-Mu5">
@@ -366,7 +366,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="film.png" width="24" height="24"/>
         <image name="ic_list" width="24" height="24"/>
         <image name="ic_schedule_white" width="24" height="24"/>
         <image name="ic_star_half_white" width="24" height="24"/>
@@ -374,6 +373,6 @@
         <image name="ic_warning_white" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ngc-VG-C4J"/>
+        <segue reference="S8w-im-MxV"/>
     </inferredMetricsTieBreakers>
 </document>
